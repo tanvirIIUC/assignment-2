@@ -1,19 +1,19 @@
 import { Schema, model, connect } from 'mongoose';
 
 
-export interface Variant {
+export type Variant = {
     type: string;
     value: string;
 }
 
 
-export interface Inventory {
+export type Inventory = {
     quantity: number;
     inStock: boolean;
 }
 
-// Define the Product interface
-export interface Product {
+
+export type Product = {
     name: string;
     description: string;
     price: number;
