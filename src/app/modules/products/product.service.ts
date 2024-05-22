@@ -31,6 +31,13 @@ const deleteProductFromDb = async (_id: string) => {
     return result;
   };
   
+  // Search products by name from database
+const searchProductsByNameFromDb = async (searchTerm: string) => {
+   
+      const results = await ProductModel.find({ name: { $regex: searchTerm, $options: 'i' } });
+      return results;
+   
+  };
 
  export const ProductServices = {
     createProductToDb,
@@ -38,5 +45,6 @@ const deleteProductFromDb = async (_id: string) => {
     getSpecificProductFromDb,
     updateProductFromDb,
     deleteProductFromDb,
+    searchProductsByNameFromDb,
    
 }

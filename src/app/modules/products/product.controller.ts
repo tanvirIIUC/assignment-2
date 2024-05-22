@@ -115,10 +115,37 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
+// Search products by name
+const searchProductsByName = async (req: Request, res: Response) => {
+  try {
+    const searchTerm = req.query.searchTerm;
+    if (!searchTerm) {
+      return res.status(400).json({
+        success: false,
+        message: 'Search term is required',
+      });
+    }
+
+    const results = await ProductServices.searchProductsByNameFromDb(searchTerm);
+    res.status(200).json({
+      success: true,
+      message: `Products matching search term ${searchTerm} fetched successfully!`,
+      data: results,
+    });
+  } catch (error) {
+  
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+    });
+  }
+};
+
 export const productController = {
   createProduct,
   getAllProduct,
   getSpecificProduct,
   updateProduct,
   deleteProduct,
+  searchProductsByName,
 }
