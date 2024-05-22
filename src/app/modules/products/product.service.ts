@@ -18,10 +18,18 @@ const createProductToDb = async (product:Product)=>{
     const result = await ProductModel.findOne({_id});
     return result;
  }
+ // Update Product Information
+
+const updateProductFromDb = async (_id: string, updatedProduct: any) => {
+    const result = await ProductModel.updateOne({ _id }, { $set: updatedProduct });
+    return result;
+  };
+  
 
  export const ProductServices = {
     createProductToDb,
     getAllProductFromDb,
     getSpecificProductFromDb,
+    updateProductFromDb,
    
 }
