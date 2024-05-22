@@ -1,13 +1,14 @@
 import express, { Application, Request, Response } from 'express'
 import cors from 'cors'
-//import { studentRoutes } from './app/modules/students/student.router'
+import { productRoutes } from './app/modules/products/product.router'
+
 const app: Application = express()
 
 //parsers
 app.use(express.json())
 app.use(cors())
 
-//app.use('/api/v1/students',studentRoutes)
+app.use('/api/products',productRoutes)
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
