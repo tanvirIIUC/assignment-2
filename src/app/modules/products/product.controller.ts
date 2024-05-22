@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
 import { ProductServices } from './product.service'
 import productValidationSchema from './product.validation'
- 
+
 // create new product
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const productData  = req.body
+    const productData = req.body
     const { error, value } = productValidationSchema.validate(productData)
     const result = await ProductServices.createProductToDb(value)
     if (error) {
@@ -29,7 +29,7 @@ const createProduct = async (req: Request, res: Response) => {
 // find all product data
 const getAllProduct = async (req: Request, res: Response) => {
   try {
-   // const {student:studentData} = req.body
+    // const {student:studentData} = req.body
     const result = await ProductServices.getAllProductFromDb()
     res.status(200).json({
       success: true,
@@ -41,9 +41,30 @@ const getAllProduct = async (req: Request, res: Response) => {
   }
 }
 
+// Specific Product by product
+const getSpecificProduct = async (req: Request, res: Response) => {
+  try {
+    const productId = req.params.productId
+    const result = await ProductServices.getSpecificProductFromDb(productId)
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: 'Product fetched successfully!',
+        data: result,
+      })
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found',
+      })
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export const productController = {
   createProduct,
   getAllProduct,
- 
+  getSpecificProduct,
 }
